@@ -1,5 +1,4 @@
 import numpy as np
-import math
 
 class Board:
     def __init__(self, rows, columns):
@@ -113,8 +112,6 @@ def game():
     while win == False:
         if player == 1 and win == False:
             column = int(input("Player 1, where would you like to place a coin?\n")) - 1
-            # if connect_board.check_full(column) == True:
-            #     column = int(input("This column is full. Please choose another one.\n")) - 1
             while connect_board.check_full(column) == True:
                 column = int(input("This column is full. Please choose another one.\n")) - 1
             win = connect_board.place_coin(column, player)
