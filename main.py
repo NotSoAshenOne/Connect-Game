@@ -112,17 +112,11 @@ def game():
         connect_board.show_board()
         column = str(input("Player 1, where would you like to place a coin?")) - 1
         if connect_board.check_full(column) == True:
-            
+            column = str(input("Player 1, where would you like to place a coin?")) - 1
 
-def main():
-    while intro() == False:
-        intro()
-    game()
+# def main():
+#     while intro() == False:
+#         intro()
+#     game()
 
-main()
-
-
-
-
-
-    
+# main()
