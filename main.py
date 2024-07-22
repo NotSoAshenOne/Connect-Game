@@ -1,4 +1,5 @@
 import numpy as np
+from connectAi import Computer_Player
 
 class Board:
     def __init__(self, rows, columns):
