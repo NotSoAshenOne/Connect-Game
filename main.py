@@ -1,5 +1,5 @@
 import numpy as np
-from connectAi import Computer_Player
+from connectAi import Computer_Player as CompPlayer
 
 class Board:
     def __init__(self, rows, columns):
@@ -103,34 +103,59 @@ def intro():
     print("Welcome to the connect game!")
     print("\n")
     play = input("Do you want to play? (y/n)")
-    return play.lower() == 'y'
+    ai = input("Who do you want to play against? [1...2]\n1. Another player\n2. The computer")
+    return ((play.lower() == 'y'), ai)
 
-def game():
+def game(ai):
     connect_board = Board(6,7)
+    computer = CompPlayer(connect_board, 2, 2)
     connect_board.show_board()
     win = False
     player = 1
     while win == False:
-        if player == 1 and win == False:
-            column = int(input("Player 1, where would you like to place a coin?\n")) - 1
-            while connect_board.check_full(column) == True:
-                column = int(input("This column is full. Please choose another one.\n")) - 1
-            win = connect_board.place_coin(column, player)
-            print("\n")
-            connect_board.show_board()
-            print("\n")
-            if win == False:
-                player = 2
-        if player == 2 and win == False:
-            column = int(input("Player 2, where would you like to place a coin?\n")) - 1
-            while connect_board.check_full(column) == True:
-                column = int(input("This column is full. Please choose another one.\n")) - 1
-            win = connect_board.place_coin(column, player)
-            print("\n")
-            connect_board.show_board()
-            print("\n")
-            if win == False:
-                player = 1
+        if ai == 1:
+            if player == 1 and win == False:
+                column = int(input("Player 1, where would you like to place a coin?\n")) - 1
+                while connect_board.check_full(column) == True:
+                    column = int(input("This column is full. Please choose another one.\n")) - 1
+                win = connect_board.place_coin(column, player)
+                print("\n")
+                connect_board.show_board()
+                print("\n")
+                if win == False:
+                    player = 2
+            if player == 2 and win == False:
+                column = int(input("Player 2, where would you like to place a coin?\n")) - 1
+                while connect_board.check_full(column) == True:
+                    column = int(input("This column is full. Please choose another one.\n")) - 1
+                win = connect_board.place_coin(column, player)
+                print("\n")
+                connect_board.show_board()
+                print("\n")
+                if win == False:
+                    player = 1
+        else:
+            if player == 1 and win == False:
+                column = int(input("Player 1, where would you like to place a coin?\n")) - 1
+                while connect_board.check_full(column) == True:
+                    column = int(input("This column is full. Please choose another one.\n")) - 1
+                win = connect_board.place_coin(column, player)
+                print("\n")
+                connect_board.show_board()
+                print("\n")
+                if win == False:
+                    player = 2
+            if player == 2 and win == False:
+                win = computer.computer_play()
+                print("\n")
+                connect_board.show_board()
+                print("\n")
+                if win == False:
+                    player = 1
+            
+                
+       
+
     
     print(f"\nCongratulations Player{player}, you won!\n\n" )
     connect_board.show_board()
@@ -138,9 +163,12 @@ def game():
     
 
 def main():
-    while intro() == False:
-        intro()
-    game()
+    start = intro()
+    while start[0] == False:
+        start = intro()
+    game(start[1])
     exit()
 
 main()
+
+

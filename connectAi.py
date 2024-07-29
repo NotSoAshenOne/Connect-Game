@@ -1,22 +1,43 @@
 import math
-from main import Board
+#from main import Board
 
 class Computer_Player:
-    def __init__(self, game_board, difficulty):
+
+
+
+    DEPTH_LIMIT = 12
+    column_dict = {'a':0, 'b':1, 'c':2, 'd':3, 'e':1}
+
+    def __init__(self, game_board, difficulty, player):
         self.game_board = game_board
         self.difficulty = difficulty
+        self.player = player
 
     def find_next_move(self, game_board):
         """Use some dynamic progamming algorithm to choose the best move"""
         if self.difficulty == "easy":
             self.greedy_move(self.game_board)
         else:
-            self.minimax_move(self.game_board)
+            self.computer_play()
     
     def greedy_move(self, game_board):
         """Use greedy algorithm"""
         
 
 
-    def minimax_move(self, game_board):
-        """Use minimax algorithm"""
+    def find_move(self, column, player, depth, score, game_board_copy):
+        if depth <= self.DEPTH_LIMIT:
+            if self.game_board_copy.place_coin(column, player) == True:
+                return (4, column)
+            else:
+                next = max((Computer_Player(i, (player+1)%2 + 1, depth +1, score+1, game_board_copy) for i in range(1,8)))
+                return (score + next[0], column)
+        else:
+            return
+        
+    def computer_play(self):
+        next_move = self.find_move((i for i in range(1,8)), self.player, 0, 0, self.game_board.copy())
+        win = self.game_board.place_coin(next_move[1], self.player)
+        return win
+
+
