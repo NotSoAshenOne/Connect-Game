@@ -2,10 +2,13 @@ import numpy as np
 from connectAi import Computer_Player as CompPlayer
 
 class Board:
-    def __init__(self, rows, columns):
+    def __init__(self, rows=0, columns=0, other_board = 's'):
         self.rows = rows
         self.columns = columns
-        self.connect_board = np.zeros((self.rows,self.columns))
+        if type(other_board) == str:
+            self.connect_board = np.zeros((self.rows,self.columns))
+        else:
+            self.connect_board = other_board
     
     def show_board(self):
         print(self.connect_board)
@@ -98,6 +101,9 @@ class Board:
             return True
         else:
             return False
+    
+    def copy(self):
+        return Board(0,0,(np.copy(self.connect_board)))
     
 def intro():
     print("Welcome to the connect game!")

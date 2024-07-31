@@ -12,6 +12,7 @@ class Computer_Player:
         self.game_board = game_board
         self.difficulty = difficulty
         self.player = player
+        self.columns = [i for i in range(1, game_board.rows+1)]
 
     def find_next_move(self, game_board):
         """Use some dynamic progamming algorithm to choose the best move"""
@@ -27,16 +28,17 @@ class Computer_Player:
 
     def find_move(self, column, player, depth, score, game_board_copy):
         if depth <= self.DEPTH_LIMIT:
-            if self.game_board_copy.place_coin(column, player) == True:
+            print(column)
+            if game_board_copy.place_coin(column, player) == True:
                 return (4, column)
             else:
-                next = max((Computer_Player(i, (player+1)%2 + 1, depth +1, score+1, game_board_copy) for i in range(1,8)))
+                next = max(([self.computer_play(i, (player+1)%2 + 1, depth +1, score+1, game_board_copy.copy())] for i in range(1,8)))
                 return (score + next[0], column)
         else:
             return
         
     def computer_play(self):
-        next_move = self.find_move((i for i in range(1,8)), self.player, 0, 0, self.game_board.copy())
+        next_move = self.find_move((i for i in self.columns), self.player, 0, 0, self.game_board.copy())
         win = self.game_board.place_coin(next_move[1], self.player)
         return win
 
