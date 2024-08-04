@@ -2,7 +2,7 @@ import numpy as np
 from connectAi import Computer_Player as CompPlayer
 
 class Board:
-    def __init__(self, rows=0, columns=0, other_board = 's'):
+    def __init__(self, rows=6, columns=7, other_board = 's'):
         self.rows = rows
         self.columns = columns
         if type(other_board) == str:
@@ -18,11 +18,14 @@ class Board:
         return self.connect_board[0][column] != 0
     
     def place_coin(self, column, player):
-        i = self.rows - 1
-        while self.connect_board[i][column] != 0:
-            i += -1
-        self.connect_board[i][column] = player
-        return self.check_win(i, column, player)
+        # i = self.rows - 1
+        # while self.connect_board[i][column] != 0:
+        #     i += -1
+        i = 0
+        while i < self.rows and self.connect_board[i][column] == 0:
+            i += 1
+        self.connect_board[i-1][column] = player
+        return self.check_win(i-1, column, player)
 
     def check_vertical(self, row, column, player):
         connected_up = 0
@@ -103,7 +106,7 @@ class Board:
             return False
     
     def copy(self):
-        return Board(0,0,(np.copy(self.connect_board)))
+        return Board(self.rows, self.columns, (np.copy(self.connect_board)))
     
 def intro():
     print("Welcome to the connect game!")
