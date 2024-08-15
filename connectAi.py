@@ -66,10 +66,10 @@ class Computer_Player:
             best_column = -1
 
             for x in range(0,game_board.columns):
-                print(x)
+                #print(x)
                 if game_board.check_full(x) == False:
                     game_board_copy = game_board.copy()
-                    print("copy ", x," ", game_board_copy)
+                    #print("copy ", x," ", game_board_copy)
                     game_board_copy.place_coin(x, player)
                     score = -((self.negamax(game_board_copy, (player%2)+1, depth+1))[0])
                     if score > best_score:
@@ -91,7 +91,7 @@ class Computer_Player:
     def play(self):
         
         column = self.negamax(self.game_board, self.player, 0)[1]
-        print(column)
+        #print(column)
         win = self.game_board.place_coin(column, self.player)
         return win
      

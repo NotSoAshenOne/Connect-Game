@@ -35,7 +35,7 @@ class Board:
         # self.connect_board[i-1][column] = player
         i = 0
         # print(i, column)
-        print(self.connect_board)
+        # print(self.connect_board)
         # print("index", self.connect_board[i, column])
         while i < self.rows and self.connect_board[i][column] == 0:
             i += 1
@@ -130,10 +130,12 @@ class Board:
         self.numMoves += 1
     
 def intro():
-    print("Welcome to the connect game!")
+    print("\nWelcome to the connect game!\n")
+    print("This is just like the classic board game, two players take turns choosing columns to place coins into until someone gets four in a row.\n\
+          Alternatively you can choose to play against a computer opponent in the same fashion.")
     print("\n")
-    play = input("Do you want to play? (y/n)")
-    ai = input("Who do you want to play against? [1...2]\n1. Another player\n2. The computer")
+    play = input("Do you want to play? (y/n)\n")
+    ai = input("Who do you want to play against? [1...2]\n1. Another player\n2. The computer\n")
     return ((play.lower() == 'y'), ai)
 
 def game(ai):
