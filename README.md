@@ -17,8 +17,9 @@ In this mode you are able to challenge yourself against the computer player.
 
 
 TODO:
-- Game AI [DONE]
+
 - Multiple Boards
 - ReadME notes and pictures
 - Comment
 - Make a turn function
+- Game AI [DONE]
