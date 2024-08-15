@@ -2,29 +2,45 @@ import numpy as np
 from connectAi import Computer_Player as CompPlayer
 
 class Board:
-    def __init__(self, rows=6, columns=7, other_board = 's'):
+    def __init__(self, rows=6, columns=7, other_board = 's', numMoves=0,):
         self.rows = rows
         self.columns = columns
+        self.numMoves = 0;
         if type(other_board) == str:
             self.connect_board = np.zeros((self.rows,self.columns))
         else:
             self.connect_board = other_board
+        
+
     
     def show_board(self):
         print(self.connect_board)
 
     
     def check_full(self, column):
+        """Returns True if the 0 row is not 0 i.e. the column is full"""
         return self.connect_board[0][column] != 0
+    
+    def next_row(self, column):
+        i = 0
+        while i < self.rows and self.connect_board[i][column] == 0:
+            i += 1
+        return i - 1
+
     
     def place_coin(self, column, player):
         # i = self.rows - 1
         # while self.connect_board[i][column] != 0:
         #     i += -1
+        # self.connect_board[i-1][column] = player
         i = 0
+        # print(i, column)
+        print(self.connect_board)
+        # print("index", self.connect_board[i, column])
         while i < self.rows and self.connect_board[i][column] == 0:
             i += 1
-        self.connect_board[i-1][column] = player
+        self.connect_board[i-1, column] = player
+        self.setNumMoves()
         return self.check_win(i-1, column, player)
 
     def check_vertical(self, row, column, player):
@@ -106,7 +122,12 @@ class Board:
             return False
     
     def copy(self):
-        return Board(self.rows, self.columns, (np.copy(self.connect_board)))
+        return Board(self.rows, self.columns, np.copy(self.connect_board), self.numMoves)
+    
+    def getNumMoves(self):
+        return self.numMoves
+    def setNumMoves(self):
+        self.numMoves += 1
     
 def intro():
     print("Welcome to the connect game!")
@@ -155,7 +176,7 @@ def game(ai):
                 if win == False:
                     player = 2
             if player == 2 and win == False:
-                win = computer.computer_play()
+                win = computer.play()
                 print("\n")
                 connect_board.show_board()
                 print("\n")
