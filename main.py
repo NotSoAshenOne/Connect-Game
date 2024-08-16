@@ -7,12 +7,12 @@ def intro():
           Alternatively you can choose to play against a computer opponent in the same fashion.")
     print("\n")
     play = input("Do you want to play? (y/n)\n")
-    ai = input("Who do you want to play against? [1...2]\n1. Another player\n2. The computer\n")
-    return ((play.lower() == 'y'), ai)
+    ai = input("Who do you want to play against? [1...2]\n1. Another player\n2. The computer [Easy]\n3. The computer [Harder]\n")
+    return ((play.lower() == 'y'), int(ai))
 
 def game(ai):
     connect_board = Board(6,7)
-    computer = CompPlayer(connect_board, 2, 2)
+    computer = CompPlayer(connect_board, 2)
     connect_board.show_board()
     win = False
     player = 1
@@ -50,7 +50,10 @@ def game(ai):
                 if win == False:
                     player = 2
             if player == 2 and win == False:
-                win = computer.play_minmax()
+                if ai == 2:
+                    win = computer.play_greedy()
+                else:
+                    win = computer.play_minmax()
                 print("\n")
                 connect_board.show_board()
                 print("\n")

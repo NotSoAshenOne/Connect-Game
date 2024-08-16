@@ -30,13 +30,8 @@ class Board:
         while i < self.rows and self.connect_board[i][column] == 0:
             i += 1
         return i - 1
-
     
     def place_coin(self, column, player):
-        # i = self.rows - 1
-        # while self.connect_board[i][column] != 0:
-        #     i += -1
-        # self.connect_board[i-1][column] = player
         i = 0
         while i < self.rows and self.connect_board[i][column] == 0:
             i += 1
