@@ -12,9 +12,6 @@ In this mode you are able to play against another player in on the computer just
 - **Player Vs. Computer [2]**\
 In this mode you are able to challenge yourself against the computer player.
 
-    
-
-
 
 TODO:
 
